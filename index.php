@@ -1,6 +1,7 @@
 <?php
 $cdir = str_replace(DIRECTORY_SEPARATOR, '/', getcwd());
 $dsn = "sqlite://./db/cast.sqlite";
+
 $clients = [];
 
 /**
@@ -269,6 +270,7 @@ ArrestDB::Serve('POST', '/(#any)', function ($table)
 
 ArrestDB::Serve('PUT', '/(#any)/(#num)', function ($table, $id)
 {
+	$tab_key = array('casts' => 'podcastID', 'episodes' => 'mediaURL');
 	if (empty($GLOBALS['_PUT']) === true)
 	{
 		$result = ArrestDB::$HTTP[204];
@@ -285,7 +287,7 @@ ArrestDB::Serve('PUT', '/(#any)/(#num)', function ($table, $id)
 
 		$query = array
 		(
-			sprintf('UPDATE "%s" SET %s WHERE "%s" = ?', $table, implode(', ', $data), 'id'),
+			sprintf('UPDATE "%s" SET %s WHERE "%s" = ?', $table, implode(', ', $data), $tab_key[$table]),
 		);
 
 		$query = sprintf('%s;', implode(' ', $query));
