@@ -43,7 +43,7 @@ ArrestDB::Serve('GET', '/(#any)/(#any)/(#any)', function ($table, $id, $data)
 	$query = array
 	(
 		sprintf('SELECT * FROM "%s"', $table),
-		sprintf('WHERE "%s" %s ?', $id, (ctype_digit($data) === true) ? '=' : 'LIKE'),
+		sprintf('WHERE "%s" %s ?', $id, (ctype_digit($data) === true || strpos($data, '%') < 0) ? '=' : 'LIKE'),
 	);
 
 	if (isset($_GET['by']) === true)
