@@ -573,7 +573,7 @@ class ArrestDB
 		{
 			if (is_null($root) === true)
 			{
-				$root = preg_replace('~/++~', '/', substr($_SERVER['PHP_SELF'], strlen($_SERVER['SCRIPT_NAME'])) . '/');
+				$root = preg_replace('~/++~', '/', substr($_SERVER['REQUEST_URI'], strlen($_SERVER['SCRIPT_NAME'])) . '/');
 			}
 
 			if (preg_match('~^' . str_replace(['#any', '#num'], ['[^/]++', '[0-9]++'], $route) . '~i', $root, $parts) > 0)
